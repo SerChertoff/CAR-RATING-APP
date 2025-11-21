@@ -6,6 +6,8 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 
 // https://vite.dev/config/
 export default defineConfig({
+  // GitHub Pages serves the site from /CAR-RATING-APP/, so asset URLs must include that base path
+  base: '/CAR-RATING-APP/',
   plugins: [
     vue(),
     vueDevTools(),
