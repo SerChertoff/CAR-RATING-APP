@@ -1,23 +1,58 @@
 <template>
-  <div class="card mb-4 shadow-sm">
-    <div class="card-body">
-      <h5 class="card-title">{{ site.name }}</h5>
-      <div class="d-flex justify-content-between align-items-center">
-        <div>
-          <span class="badge bg-primary me-2">Рейтинг: {{ site.rating.toFixed(1) }}</span>
-          <span class="text-muted">Отзывов: {{ site.reviews }}</span>
-        </div>
-        <router-link :to="`/site/${site.id}`" class="btn btn-sm btn-outline-secondary">
-          Подробнее
-        </router-link>
+  <article class="site-card">
+    <div class="site-card__header">
+      <div>
+        <p class="eyebrow">Цифровой шоурум</p>
+        <h3>{{ site.name }}</h3>
       </div>
-      <p class="card-text mt-2">{{ site.description }}</p>
+      <div class="site-card__rating">
+        <span>{{ site.rating.toFixed(1) }}</span>
+        <small>из 5</small>
+      </div>
     </div>
-  </div>
+
+    <p class="site-card__description">{{ site.description }}</p>
+
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="meta-pill">
+        <span>Отзывы</span>
+        <strong>{{ reviewCount }}</strong>
+      </div>
+      <div class="progress-bar">
+        <span :style="{ width: `${ratingPercent}%` }"></span>
+      </div>
+    </div>
+
+    <ul v-if="featuresToShow.length" class="feature-list">
+      <li v-for="feature in featuresToShow" :key="feature">
+        {{ feature }}
+      </li>
+    </ul>
+
+    <div class="site-card__actions">
+      <router-link :to="`/site/${site.id}`" class="btn btn-glow">
+        Подробнее
+      </router-link>
+    </div>
+  </article>
 </template>
 
 <script setup>
-defineProps({
-  site: Object
+import { computed } from 'vue'
+
+const props = defineProps({
+  site: {
+    type: Object,
+    required: true
+  }
 })
+
+const ratingPercent = computed(() => {
+  const value = (props.site.rating / 5) * 100
+  return Math.min(100, Math.max(0, Number(value.toFixed(0))))
+})
+
+const featuresToShow = computed(() => props.site.features?.slice(0, 3) ?? [])
+
+const reviewCount = computed(() => props.site.reviews?.toLocaleString('ru-RU') ?? '0')
 </script>
