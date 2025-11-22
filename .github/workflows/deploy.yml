@@ -74,6 +74,48 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
+      - name: Verify files before upload
+        run: |
+          echo "=== Files to be uploaded ==="
+          find dist -type f | sort
+          echo ""
+          echo "=== Verifying index.html content ==="
+          cat dist/index.html
+          echo ""
+          echo "=== Checking for .nojekyll ==="
+          if [ ! -f dist/.nojekyll ]; then
+            echo "Creating .nojekyll file..."
+            touch dist/.nojekyll
+          fi
+          ls -la dist/.nojekyll
+          echo ""
+          echo "=== Verifying assets exist ==="
+          ls -la dist/assets/ || echo "ERROR: assets directory not found!"
+          echo ""
+          echo "=== Verifying files referenced in index.html exist ==="
+          JS_FILE=$(grep -oP 'src="[^"]*\.js"' dist/index.html | head -1 | sed 's/src="//;s/"//' | sed 's|^/CAR-RATING-APP/||')
+          CSS_FILE=$(grep -oP 'href="[^"]*\.css"' dist/index.html | head -1 | sed 's/href="//;s/"//' | sed 's|^/CAR-RATING-APP/||')
+          echo "JS file path from HTML: $JS_FILE"
+          echo "CSS file path from HTML: $CSS_FILE"
+          if [ -f "dist/$JS_FILE" ]; then
+            echo "✓ JS file exists: dist/$JS_FILE"
+            ls -lh "dist/$JS_FILE"
+          else
+            echo "❌ JS file NOT FOUND: dist/$JS_FILE"
+            echo "Available JS files:"
+            find dist/assets -name "*.js" || echo "No JS files found!"
+            exit 1
+          fi
+          if [ -f "dist/$CSS_FILE" ]; then
+            echo "✓ CSS file exists: dist/$CSS_FILE"
+            ls -lh "dist/$CSS_FILE"
+          else
+            echo "❌ CSS file NOT FOUND: dist/$CSS_FILE"
+            echo "Available CSS files:"
+            find dist/assets -name "*.css" || echo "No CSS files found!"
+            exit 1
+          fi
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
