@@ -4,12 +4,12 @@ import SiteDetail from '@/views/SiteDetail.vue'
 
 const routes = [
   { path: '/', component: MainPage },
-  { path: '/site/:id', component: SiteDetail, props: true }
+  { path: '/site/:id', component: SiteDetail, props: true },
 ]
 
 const router = createRouter({
-  history: createWebHistory('/CAR-RATING-APP/'),
-  routes
+  history: createWebHistory('/car-rating-app/'),
+  routes,
 })
 
 export default router
