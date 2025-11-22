@@ -10,10 +10,8 @@ export default defineConfig({
   base: '/CAR-RATING-APP/',
   plugins: [
     vue(),
-    // Only enable devtools in development
-    vueDevTools({
-      enabled: import.meta.env.DEV,
-    }),
+    // Devtools will automatically be disabled in production builds
+    vueDevTools(),
   ],
   resolve: {
     alias: {
