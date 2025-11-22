@@ -137,20 +137,76 @@ jobs:
 
       - name: Verify deployed files
         run: |
+          echo "=========================================="
+          echo "=== VERIFYING DEPLOYED FILES ==="
+          echo "=========================================="
+          echo ""
           echo "=== Deployed files structure ==="
           find ./deployed-files -type f | sort
           echo ""
-          echo "=== Deployed index.html ==="
-          cat ./deployed-files/index.html || echo "index.html not found!"
+          echo "=== Total files count ==="
+          find ./deployed-files -type f | wc -l
+          echo ""
+          echo "=== Deployed index.html (FULL CONTENT) ==="
+          if [ -f ./deployed-files/index.html ]; then
+            cat ./deployed-files/index.html
+            echo ""
+            echo "=== Checking for /src/main.js in index.html ==="
+            if grep -q "/src/main.js" ./deployed-files/index.html; then
+              echo "❌ ERROR: index.html contains /src/main.js!"
+            else
+              echo "✓ index.html does NOT contain /src/main.js"
+            fi
+            echo ""
+            echo "=== Checking for correct asset paths ==="
+            if grep -q "/CAR-RATING-APP/assets/" ./deployed-files/index.html; then
+              echo "✓ index.html contains correct asset paths"
+            else
+              echo "❌ WARNING: index.html may not have correct asset paths"
+            fi
+          else
+            echo "❌ ERROR: index.html not found!"
+          fi
           echo ""
           echo "=== Checking .nojekyll ==="
-          ls -la ./deployed-files/.nojekyll || echo ".nojekyll not found!"
+          if [ -f ./deployed-files/.nojekyll ]; then
+            echo "✓ .nojekyll exists"
+            ls -la ./deployed-files/.nojekyll
+          else
+            echo "❌ WARNING: .nojekyll not found!"
+          fi
           echo ""
-          echo "=== Checking assets ==="
-          ls -la ./deployed-files/assets/ || echo "assets directory not found!"
+          echo "=== Checking assets directory ==="
+          if [ -d ./deployed-files/assets ]; then
+            echo "✓ assets directory exists"
+            echo "Files in assets:"
+            ls -lh ./deployed-files/assets/
+            echo ""
+            echo "=== Verifying files referenced in index.html ==="
+            JS_FILE=$(grep -oP 'src="[^"]*\.js"' ./deployed-files/index.html | head -1 | sed 's/src="//;s/"//' | sed 's|^/CAR-RATING-APP/||')
+            CSS_FILE=$(grep -oP 'href="[^"]*\.css"' ./deployed-files/index.html | head -1 | sed 's/href="//;s/"//' | sed 's|^/CAR-RATING-APP/||')
+            echo "JS file from HTML: $JS_FILE"
+            echo "CSS file from HTML: $CSS_FILE"
+            if [ -f "./deployed-files/$JS_FILE" ]; then
+              echo "✓ JS file exists: ./deployed-files/$JS_FILE"
+              ls -lh "./deployed-files/$JS_FILE"
+            else
+              echo "❌ JS file NOT FOUND: ./deployed-files/$JS_FILE"
+            fi
+            if [ -f "./deployed-files/$CSS_FILE" ]; then
+              echo "✓ CSS file exists: ./deployed-files/$CSS_FILE"
+              ls -lh "./deployed-files/$CSS_FILE"
+            else
+              echo "❌ CSS file NOT FOUND: ./deployed-files/$CSS_FILE"
+            fi
+          else
+            echo "❌ ERROR: assets directory not found!"
+          fi
           echo ""
           echo "=== File sizes ==="
-          du -sh ./deployed-files/*
+          du -sh ./deployed-files/* 2>/dev/null || echo "Could not get file sizes"
+          echo ""
+          echo "=========================================="
 
       - name: Deploy to GitHub Pages
         id: deployment
