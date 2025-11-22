@@ -35,6 +35,15 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: List dist contents
+        run: |
+          echo "=== Dist directory contents ==="
+          ls -la dist/
+          echo "=== Dist/index.html ==="
+          cat dist/index.html || echo "index.html not found"
+          echo "=== Dist/assets (if exists) ==="
+          ls -la dist/assets/ || echo "assets directory not found"
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
