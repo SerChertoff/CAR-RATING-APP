@@ -35,18 +35,41 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Verify build output
+        run: |
+          echo "=== Verifying index.html ==="
+          if grep -q "/src/main.js" dist/index.html; then
+            echo "ERROR: index.html still contains /src/main.js!"
+            cat dist/index.html
+            exit 1
+          fi
+          if ! grep -q "/CAR-RATING-APP/assets/" dist/index.html; then
+            echo "ERROR: index.html doesn't contain correct asset paths!"
+            cat dist/index.html
+            exit 1
+          fi
+          echo "✓ index.html is correct"
+
       - name: List dist contents
         run: |
           echo "=== Dist directory contents ==="
           ls -la dist/
           echo "=== Checking for .nojekyll ==="
           ls -la dist/.nojekyll || echo ".nojekyll not found (will be created)"
-          echo "=== Dist/index.html ==="
+          echo "=== Dist/index.html (full content) ==="
           cat dist/index.html || echo "index.html not found"
           echo "=== Dist/assets (if exists) ==="
           ls -la dist/assets/ || echo "assets directory not found"
-          echo "=== Creating .nojekyll if missing ==="
-          touch dist/.nojekyll || echo "Failed to create .nojekyll"
+          echo "=== Verifying .nojekyll ==="
+          if [ -f dist/.nojekyll ]; then
+            echo ".nojekyll file exists ✓"
+          else
+            echo "Creating .nojekyll file..."
+            touch dist/.nojekyll
+            echo ".nojekyll file created ✓"
+          fi
+          echo "=== Final dist structure ==="
+          find dist -type f | sort
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
