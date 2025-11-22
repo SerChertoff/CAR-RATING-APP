@@ -135,13 +135,26 @@ jobs:
           name: github-pages
           path: ./deployed-files
 
-      - name: Verify deployed files
+      - name: Extract and verify deployed files
         run: |
           echo "=========================================="
-          echo "=== VERIFYING DEPLOYED FILES ==="
+          echo "=== EXTRACTING AND VERIFYING FILES ==="
           echo "=========================================="
           echo ""
-          echo "=== Deployed files structure ==="
+          echo "=== Checking downloaded artifact ==="
+          ls -la ./deployed-files/
+          echo ""
+          echo "=== Extracting artifact.tar if exists ==="
+          if [ -f ./deployed-files/artifact.tar ]; then
+            echo "Found artifact.tar, extracting..."
+            cd ./deployed-files
+            tar -tf artifact.tar | head -20
+            tar -xf artifact.tar
+            cd ..
+            echo "Extraction complete"
+          fi
+          echo ""
+          echo "=== Deployed files structure (after extraction) ==="
           find ./deployed-files -type f | sort
           echo ""
           echo "=== Total files count ==="
