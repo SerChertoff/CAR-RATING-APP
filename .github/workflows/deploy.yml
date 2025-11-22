@@ -39,10 +39,14 @@ jobs:
         run: |
           echo "=== Dist directory contents ==="
           ls -la dist/
+          echo "=== Checking for .nojekyll ==="
+          ls -la dist/.nojekyll || echo ".nojekyll not found (will be created)"
           echo "=== Dist/index.html ==="
           cat dist/index.html || echo "index.html not found"
           echo "=== Dist/assets (if exists) ==="
           ls -la dist/assets/ || echo "assets directory not found"
+          echo "=== Creating .nojekyll if missing ==="
+          touch dist/.nojekyll || echo "Failed to create .nojekyll"
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
