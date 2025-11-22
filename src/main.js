@@ -26,7 +26,19 @@ if (window.location.search) {
   }
 }
 
-const app = createApp(App)
-app.use(createPinia())
-app.use(router)
-app.mount('#app')
+// Error handling for app initialization
+try {
+  const app = createApp(App)
+  app.use(createPinia())
+  app.use(router)
+  app.mount('#app')
+} catch (error) {
+  console.error('Failed to initialize app:', error)
+  document.getElementById('app').innerHTML = `
+    <div style="padding: 20px; text-align: center;">
+      <h1>Ошибка загрузки приложения</h1>
+      <p>${error.message}</p>
+      <pre>${error.stack}</pre>
+    </div>
+  `
+}
