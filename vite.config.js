@@ -6,8 +6,8 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 
 // https://vite.dev/config/
 export default defineConfig({
-  // Use relative paths for GitHub Pages compatibility
-  base: './',
+  // Base path for GitHub Pages (should match your repository name exactly, including case)
+  base: '/CAR-RATING-APP/',
   plugins: [vue(), vueDevTools()],
   resolve: {
     alias: {
