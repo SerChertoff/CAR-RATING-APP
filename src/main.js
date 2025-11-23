@@ -8,7 +8,7 @@ import App from './App.vue'
 import router from './router'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap'
-
+// !!!
 // Handle GitHub Pages 404 redirects
 // When GitHub Pages redirects through 404.html, it adds the path as a query parameter
 // e.g., /CAR-RATING-APP/?/site/123 -> should navigate to /site/123
