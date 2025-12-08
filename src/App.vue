@@ -16,12 +16,12 @@ useSEO()
     <div class="orb orb-3"></div>
     <div class="orb orb-4"></div>
 
-    <header class="app-navbar" role="banner">
+    <header class="app-navbar" role="banner" itemscope itemtype="https://schema.org/WPHeader">
       <div class="container nav-inner">
-        <RouterLink to="/" class="brand" aria-label="На главную DrivePulse">
-          <span class="brand-badge">DrivePulse</span>
+        <RouterLink to="/" class="brand" aria-label="На главную DrivePulse" itemprop="url">
+          <span class="brand-badge" itemprop="name">DrivePulse</span>
           <div>
-            <strong>{{ config.app.name }}</strong>
+            <strong itemprop="alternateName">{{ config.app.name }}</strong>
             <p>Для настоящих автолюбителей</p>
           </div>
         </RouterLink>
