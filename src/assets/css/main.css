@@ -29,6 +29,15 @@ body {
   position: relative;
 }
 
+/* Улучшенная читаемость основного текста */
+p,
+span,
+li,
+div,
+a {
+  color: rgba(255, 255, 255, 0.95);
+}
+
 body::before {
   content: '';
   position: fixed;
@@ -156,7 +165,7 @@ body::before {
 
 .brand p {
   font-size: 0.85rem;
-  color: var(--gray-400);
+  color: rgba(255, 255, 255, 0.85);
   margin: 0;
 }
 
@@ -373,7 +382,7 @@ body::before {
 }
 
 .hero-content p {
-  color: var(--gray-300);
+  color: rgba(255, 255, 255, 0.9);
   max-width: 520px;
 }
 
@@ -436,7 +445,7 @@ body::before {
 }
 
 .stat-card small {
-  color: var(--gray-400);
+  color: rgba(255, 255, 255, 0.85);
   text-transform: uppercase;
   letter-spacing: 0.08em;
   font-weight: 600;
@@ -454,7 +463,7 @@ body::before {
 }
 
 .stat-card span {
-  color: var(--gray-300);
+  color: rgba(255, 255, 255, 0.9);
   font-size: 0.9rem;
 }
 
@@ -796,11 +805,11 @@ body::before {
 }
 
 .site-card__rating small {
-  color: var(--gray-400);
+  color: rgba(255, 255, 255, 0.85);
 }
 
 .site-card__description {
-  color: var(--gray-300);
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .meta-pill {
@@ -823,7 +832,7 @@ body::before {
   font-size: 0.75rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--gray-300);
+  color: rgba(255, 255, 255, 0.85);
   font-weight: 600;
 }
 
@@ -1029,7 +1038,7 @@ body::before {
 }
 
 .text-muted {
-  color: var(--gray-400) !important;
+  color: rgba(255, 255, 255, 0.8) !important;
 }
 
 /* Breadcrumbs стили для SEO */
@@ -1053,7 +1062,7 @@ body::before {
 .breadcrumb-item + .breadcrumb-item::before {
   content: '→';
   padding: 0 0.5rem;
-  color: var(--gray-400);
+  color: rgba(255, 255, 255, 0.7);
   font-weight: bold;
 }
 
@@ -1123,11 +1132,11 @@ h3 {
 }
 
 .form-control::placeholder {
-  color: var(--gray-400);
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .form-label {
-  color: var(--gray-300);
+  color: rgba(255, 255, 255, 0.95);
   font-weight: 600;
   margin-bottom: 0.5rem;
 }
@@ -1149,7 +1158,7 @@ h3 {
 
 .card-body {
   padding: 1.5rem;
-  color: var(--gray-300);
+  color: rgba(255, 255, 255, 0.95);
 }
 
 @media (max-width: 1024px) {
