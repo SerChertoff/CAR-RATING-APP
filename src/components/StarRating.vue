@@ -27,16 +27,16 @@ import { ref, watch } from 'vue'
 const props = defineProps({
   rating: {
     type: Number,
-    default: 0
+    default: 0,
   },
   ariaLabel: {
     type: String,
-    default: 'Рейтинг'
+    default: 'Рейтинг',
   },
   id: {
     type: String,
-    default: undefined
-  }
+    default: undefined,
+  },
 })
 
 const emit = defineEmits(['update:rating'])
@@ -47,7 +47,7 @@ watch(
   () => props.rating,
   (value) => {
     currentRating.value = value
-  }
+  },
 )
 
 const setRating = (value) => {
@@ -66,7 +66,10 @@ const setRating = (value) => {
   font-size: 2rem;
   color: rgba(255, 255, 255, 0.6);
   cursor: pointer;
-  transition: transform 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease;
   background: transparent;
   border: none;
   padding: 4px;
@@ -79,12 +82,25 @@ const setRating = (value) => {
 }
 
 .filled {
-  color: #fbbf24;
-  text-shadow: 0 0 10px rgba(251, 191, 36, 0.7);
+  color: #ffc107;
+  text-shadow:
+    0 0 15px rgba(255, 195, 7, 0.8),
+    0 0 30px rgba(255, 61, 0, 0.5);
+  animation: starPulse 2s ease-in-out infinite;
+}
+
+@keyframes starPulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
 }
 
 .star:focus-visible {
-  outline: 2px solid #fbbf24;
-  box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.35);
+  outline: 2px solid #ffc107;
+  box-shadow: 0 0 0 3px rgba(255, 195, 7, 0.35);
 }
 </style>

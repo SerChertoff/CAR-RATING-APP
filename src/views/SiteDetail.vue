@@ -2,7 +2,7 @@
   <div class="container mt-4 detail-view" v-if="site">
     <section class="detail-hero">
       <div>
-        <p class="eyebrow">Штаб-квартира — {{ site.details?.headquarters || 'Россия' }}</p>
+        <p class="eyebrow">📍 Штаб-квартира — {{ site.details?.headquarters || 'Россия' }}</p>
         <h2 class="mb-2">{{ site.name }}</h2>
         <p class="text-muted mb-3">{{ site.description }}</p>
         <div class="filter-chips" v-if="site.features?.length">
@@ -13,7 +13,7 @@
       </div>
       <div class="detail-hero__rating">
         <span>{{ site.rating.toFixed(1) }}</span>
-        <small>на основе {{ site.reviews.toLocaleString('ru-RU') }} отзывов</small>
+        <small>⭐ на основе {{ site.reviews.toLocaleString('ru-RU') }} отзывов автолюбителей</small>
         <a
           :href="site.url"
           target="_blank"
@@ -21,7 +21,7 @@
           class="btn btn-primary mt-3"
           :aria-label="`Перейти на сайт ${site.name} в новой вкладке`"
         >
-          Перейти на сайт
+          🚀 Перейти на сайт
         </a>
       </div>
     </section>
@@ -173,13 +173,32 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, watch, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { useRatingStore } from '@/stores/ratingStore'
 import ReviewForm from '@/components/ReviewForm.vue'
 import StarRating from '@/components/StarRating.vue'
+import { useSEO } from '@/composables/useSEO'
 
 const route = useRoute()
 const ratingStore = useRatingStore()
 const site = computed(() => ratingStore.sites.find((s) => s.id === parseInt(route.params.id)))
+
+// Обновляем SEO при изменении сайта
+const { updateSEO } = useSEO()
+watch(
+  () => site.value,
+  (newSite) => {
+    if (newSite) {
+      updateSEO(newSite)
+    }
+  },
+  { immediate: true },
+)
+
+onMounted(() => {
+  if (site.value) {
+    updateSEO(site.value)
+  }
+})
 </script>

@@ -2,9 +2,9 @@
   <div class="card review-card glass-panel">
     <div class="card-header">
       <div>
-        <span id="review-title">Оставить отзыв</span>
+        <span id="review-title">💬 Оставить отзыв</span>
         <p class="text-muted mb-0" id="review-desc">
-          Поделитесь опытом и помогите другим выбрать площадку
+          Поделитесь опытом и помогите другим автолюбителям выбрать площадку
         </p>
       </div>
     </div>
@@ -29,7 +29,7 @@
         ></textarea>
       </div>
       <button type="button" @click="submitReview" class="btn btn-primary w-100">
-        Отправить отзыв
+        🚀 Отправить отзыв
       </button>
     </div>
   </div>
@@ -43,8 +43,8 @@ import StarRating from '@/components/StarRating.vue'
 const props = defineProps({
   siteId: {
     type: Number,
-    required: true
-  }
+    required: true,
+  },
 })
 
 const userRating = ref(0)
