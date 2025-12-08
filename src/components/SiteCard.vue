@@ -5,7 +5,11 @@
         <p class="eyebrow">Цифровой шоурум</p>
         <h3>{{ site.name }}</h3>
       </div>
-      <div class="site-card__rating">
+      <div
+        class="site-card__rating"
+        role="img"
+        :aria-label="`Рейтинг ${site.rating.toFixed(1)} из 5`"
+      >
         <span>{{ site.rating.toFixed(1) }}</span>
         <small>из 5</small>
       </div>
@@ -18,7 +22,14 @@
         <span>Отзывы</span>
         <strong>{{ reviewCount }}</strong>
       </div>
-      <div class="progress-bar">
+      <div
+        class="progress-bar"
+        role="progressbar"
+        :aria-valuenow="ratingPercent"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        :aria-label="`Оценка ${site.rating.toFixed(1)} из 5`"
+      >
         <span :style="{ width: `${ratingPercent}%` }"></span>
       </div>
     </div>
@@ -30,7 +41,11 @@
     </ul>
 
     <div class="site-card__actions">
-      <router-link :to="`/site/${site.id}`" class="btn btn-glow">
+      <router-link
+        :to="`/site/${site.id}`"
+        class="btn btn-glow"
+        :aria-label="`Подробнее о площадке ${site.name}`"
+      >
         Подробнее
       </router-link>
     </div>
@@ -43,8 +58,8 @@ import { computed } from 'vue'
 const props = defineProps({
   site: {
     type: Object,
-    required: true
-  }
+    required: true,
+  },
 })
 
 const ratingPercent = computed(() => {

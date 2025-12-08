@@ -14,7 +14,15 @@
       <div class="detail-hero__rating">
         <span>{{ site.rating.toFixed(1) }}</span>
         <small>на основе {{ site.reviews.toLocaleString('ru-RU') }} отзывов</small>
-        <a :href="site.url" target="_blank" class="btn btn-primary mt-3">Перейти на сайт</a>
+        <a
+          :href="site.url"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn btn-primary mt-3"
+          :aria-label="`Перейти на сайт ${site.name} в новой вкладке`"
+        >
+          Перейти на сайт
+        </a>
       </div>
     </section>
 
@@ -63,7 +71,13 @@
               <ul class="mb-3">
                 <li v-for="(feature, index) in site.features" :key="index">{{ feature }}</li>
               </ul>
-              <a :href="site.url" target="_blank" class="btn btn-primary">
+              <a
+                :href="site.url"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn btn-primary"
+                :aria-label="`Перейти на сайт ${site.name} в новой вкладке`"
+              >
                 Перейти на сайт
               </a>
             </div>
@@ -73,7 +87,11 @@
                 <div class="col-md-6" v-if="site.details.offerTypes?.length">
                   <h6 class="text-uppercase text-muted">Типы предложений</h6>
                   <ul class="list-unstyled mb-0">
-                    <li v-for="type in site.details.offerTypes" :key="type" class="d-flex align-items-center mb-2">
+                    <li
+                      v-for="type in site.details.offerTypes"
+                      :key="type"
+                      class="d-flex align-items-center mb-2"
+                    >
                       <span class="badge bg-light text-secondary border me-2">●</span>
                       <span>{{ type }}</span>
                     </li>
@@ -101,7 +119,10 @@
                 </div>
               </div>
 
-              <div class="row g-4 mt-1" v-if="site.details.pros?.length || site.details.cons?.length">
+              <div
+                class="row g-4 mt-1"
+                v-if="site.details.pros?.length || site.details.cons?.length"
+              >
                 <div class="col-md-6" v-if="site.details.pros?.length">
                   <div class="border rounded-3 p-3 h-100">
                     <h6 class="text-success">Преимущества</h6>
@@ -160,6 +181,5 @@ import StarRating from '@/components/StarRating.vue'
 
 const route = useRoute()
 const ratingStore = useRatingStore()
-const site = computed(() => 
-  ratingStore.sites.find(s => s.id === parseInt(route.params.id)))
+const site = computed(() => ratingStore.sites.find((s) => s.id === parseInt(route.params.id)))
 </script>

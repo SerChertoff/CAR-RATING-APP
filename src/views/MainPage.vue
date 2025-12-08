@@ -1,16 +1,16 @@
 <template>
   <div class="container page">
-    <section class="hero-panel">
+    <section class="hero-panel" aria-labelledby="hero-title">
       <div class="hero-content">
         <p class="eyebrow">Собрали то, что проверено</p>
-        <h1>Рейтинг автоплощадок России</h1>
+        <h1 id="hero-title">Рейтинг автоплощадок России</h1>
         <p>
           Мы отслеживаем площадки, где покупатели действительно получают прозрачные сделки,
           проверенную историю авто и сервис на уровне топовых дилеров.
         </p>
 
         <div class="hero-actions">
-          <button @click="sortByRating" class="btn btn-primary">
+          <button type="button" @click="sortByRating" class="btn btn-primary">
             Топ по рейтингу
           </button>
           <router-link v-if="topSite" :to="`/site/${topSite.id}`" class="btn btn-ghost">
@@ -38,22 +38,24 @@
       </div>
     </section>
 
-    <div class="filter-chips">
+    <div class="filter-chips" role="group" aria-label="Фильтр по типу площадки">
       <button
         v-for="filter in vibeFilters"
         :key="filter"
         class="chip"
         :class="{ active: selectedFilter === filter }"
+        type="button"
+        :aria-pressed="selectedFilter === filter"
         @click="selectFilter(filter)"
       >
         {{ filter }}
       </button>
     </div>
 
-    <section class="insight-card" v-if="topSite">
+    <section class="insight-card" v-if="topSite" aria-labelledby="flagship-title">
       <div class="insight-card__copy">
         <p class="eyebrow">Флагман недели</p>
-        <h3>{{ topSite.name }}</h3>
+        <h2 id="flagship-title">{{ topSite.name }}</h2>
         <p class="text-muted">{{ topSite.description }}</p>
       </div>
       <div class="insight-card__spotlight">
