@@ -9,8 +9,14 @@
         class="site-card__rating"
         role="img"
         :aria-label="`Рейтинг ${site.rating.toFixed(1)} из 5`"
+        itemprop="aggregateRating"
+        itemscope
+        itemtype="https://schema.org/AggregateRating"
       >
-        <span>{{ site.rating.toFixed(1) }}</span>
+        <span itemprop="ratingValue">{{ site.rating.toFixed(1) }}</span>
+        <meta itemprop="bestRating" content="5" />
+        <meta itemprop="worstRating" content="1" />
+        <meta itemprop="ratingCount" :content="site.reviews" />
         <small>из 5</small>
       </div>
     </div>
@@ -45,6 +51,7 @@
         :to="`/site/${site.id}`"
         class="btn btn-glow"
         :aria-label="`Подробнее о площадке ${site.name}`"
+        itemprop="url"
       >
         <span>🔍 Подробнее</span>
       </router-link>

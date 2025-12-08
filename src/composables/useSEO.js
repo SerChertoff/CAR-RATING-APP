@@ -19,6 +19,10 @@ export function useSEO() {
       keywords = `${site.name}, рейтинг ${site.name}, отзывы ${site.name}, ${site.name} рейтинг`
     }
 
+    // Определяем базовый URL и canonical URL перед использованием
+    const baseUrl = 'https://yourdomain.com/CAR-RATING-APP'
+    const canonicalUrl = site ? `${baseUrl}/site/${site.id}` : baseUrl
+
     // Обновляем title
     document.title = title
 
@@ -27,12 +31,14 @@ export function useSEO() {
     updateMetaTag('keywords', keywords)
     updateMetaTag('og:title', title, 'property')
     updateMetaTag('og:description', description, 'property')
+    updateMetaTag('og:url', canonicalUrl, 'property')
+    updateMetaTag('og:image', `${baseUrl}/og-image.jpg`, 'property')
     updateMetaTag('twitter:title', title, 'property')
     updateMetaTag('twitter:description', description, 'property')
+    updateMetaTag('twitter:image', `${baseUrl}/og-image.jpg`, 'property')
+    updateMetaTag('twitter:url', canonicalUrl, 'property')
 
     // Обновляем canonical URL
-    const baseUrl = 'https://yourdomain.com/CAR-RATING-APP'
-    const canonicalUrl = site ? `${baseUrl}/site/${site.id}` : baseUrl
     updateCanonical(canonicalUrl)
 
     // Добавляем структурированные данные
@@ -60,22 +66,31 @@ export function useSEO() {
   }
 
   const updateStructuredData = (site) => {
-    // Удаляем старые структурированные данные
+    // Удаляем старые структурированные данные (кроме статических из index.html)
     const oldScripts = document.querySelectorAll('script[type="application/ld+json"]')
     oldScripts.forEach((script) => {
-      if (script.textContent.includes('"@type"')) {
+      // Удаляем только динамические скрипты, не статические из head
+      if (
+        script.textContent.includes('"@type"') &&
+        !script.textContent.includes('"@type": "WebSite"') &&
+        !script.textContent.includes('"@type": "Organization"')
+      ) {
         script.remove()
       }
     })
 
-    let structuredData
+    const baseUrl = 'https://yourdomain.com/CAR-RATING-APP'
+    const scripts = []
 
     if (site) {
-      structuredData = {
+      // Product schema для страницы площадки
+      scripts.push({
         '@context': 'https://schema.org',
         '@type': 'Product',
         name: site.name,
         description: site.description,
+        url: `${baseUrl}/site/${site.id}`,
+        image: `${baseUrl}/og-image.jpg`,
         aggregateRating: {
           '@type': 'AggregateRating',
           ratingValue: site.rating.toFixed(1),
@@ -83,34 +98,98 @@ export function useSEO() {
           bestRating: '5',
           worstRating: '1',
         },
-        url: `https://yourdomain.com/CAR-RATING-APP/site/${site.id}`,
         brand: {
           '@type': 'Brand',
           name: site.name,
         },
-      }
-    } else {
-      structuredData = {
-        '@context': 'https://schema.org',
-        '@type': 'WebSite',
-        name: 'DrivePulse',
-        alternateName: 'Рейтинг автоплощадок России',
-        url: 'https://yourdomain.com/CAR-RATING-APP/',
-        description:
-          'Рейтинг лучших автоплощадок России. Сравнение Auto.ru, Drom.ru, Avito Авто. Отзывы автолюбителей.',
-        inLanguage: 'ru-RU',
-        potentialAction: {
-          '@type': 'SearchAction',
-          target: 'https://yourdomain.com/CAR-RATING-APP/?q={search_term_string}',
-          'query-input': 'required name=search_term_string',
+        offers: {
+          '@type': 'Offer',
+          url: site.url || `${baseUrl}/site/${site.id}`,
+          availability: 'https://schema.org/InStock',
         },
-      }
+      })
+
+      // BreadcrumbList для навигации
+      scripts.push({
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'Главная',
+            item: baseUrl,
+          },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: site.name,
+            item: `${baseUrl}/site/${site.id}`,
+          },
+        ],
+      })
+
+      // WebPage для страницы
+      scripts.push({
+        '@context': 'https://schema.org',
+        '@type': 'WebPage',
+        name: `${site.name} - Рейтинг ${site.rating.toFixed(1)}/5`,
+        description: site.description,
+        url: `${baseUrl}/site/${site.id}`,
+        mainEntity: {
+          '@type': 'Product',
+          name: site.name,
+        },
+      })
+    } else {
+      // ItemList для главной страницы со списком площадок
+      const sitesList = ratingStore.sites.map((s, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        item: {
+          '@type': 'Product',
+          name: s.name,
+          description: s.description,
+          url: `${baseUrl}/site/${s.id}`,
+          aggregateRating: {
+            '@type': 'AggregateRating',
+            ratingValue: s.rating.toFixed(1),
+            reviewCount: s.reviews,
+          },
+        },
+      }))
+
+      scripts.push({
+        '@context': 'https://schema.org',
+        '@type': 'ItemList',
+        name: 'Рейтинг автоплощадок России',
+        description: 'Список лучших автоплощадок России с рейтингами и отзывами',
+        numberOfItems: sitesList.length,
+        itemListElement: sitesList,
+      })
+
+      // BreadcrumbList для главной
+      scripts.push({
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'Главная',
+            item: baseUrl,
+          },
+        ],
+      })
     }
 
-    const script = document.createElement('script')
-    script.type = 'application/ld+json'
-    script.textContent = JSON.stringify(structuredData)
-    document.head.appendChild(script)
+    // Добавляем все структурированные данные
+    scripts.forEach((data) => {
+      const script = document.createElement('script')
+      script.type = 'application/ld+json'
+      script.textContent = JSON.stringify(data)
+      document.head.appendChild(script)
+    })
   }
 
   // Отслеживаем изменения маршрута

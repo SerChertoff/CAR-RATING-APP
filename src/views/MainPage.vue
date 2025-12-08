@@ -78,8 +78,18 @@
         </div>
       </section>
 
-      <section id="top-sites" aria-label="Топ автоплощадок">
-        <h2 class="visually-hidden">Рейтинг автоплощадок</h2>
+      <section
+        id="top-sites"
+        aria-label="Топ автоплощадок"
+        itemscope
+        itemtype="https://schema.org/ItemList"
+      >
+        <h2 class="visually-hidden" itemprop="name">Рейтинг автоплощадок</h2>
+        <meta
+          itemprop="description"
+          content="Список лучших автоплощадок России с рейтингами и отзывами"
+        />
+        <meta itemprop="numberOfItems" :content="sites.length" />
         <div v-if="sites.length" class="grid" role="list">
           <SiteCard
             v-for="site in sites"
