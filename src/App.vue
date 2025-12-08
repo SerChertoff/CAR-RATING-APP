@@ -1,6 +1,11 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
+import { onMounted } from 'vue'
 import config from '@/config'
+import { useSEO } from '@/composables/useSEO'
+
+// Инициализируем SEO
+useSEO()
 </script>
 
 <template>
@@ -8,6 +13,8 @@ import config from '@/config'
     <a class="skip-link" href="#main-content">Пропустить к основному контенту</a>
     <div class="orb orb-1"></div>
     <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="orb orb-4"></div>
 
     <header class="app-navbar" role="banner">
       <div class="container nav-inner">
@@ -15,13 +22,13 @@ import config from '@/config'
           <span class="brand-badge">DrivePulse</span>
           <div>
             <strong>{{ config.app.name }}</strong>
-            <p>Гид по проверенным площадкам</p>
+            <p>Для настоящих автолюбителей</p>
           </div>
         </RouterLink>
 
         <nav class="nav-actions" aria-label="Основная навигация">
-          <a class="nav-pill" href="#top-sites">Тренды 2025</a>
-          <RouterLink class="nav-link" to="/">Каталог</RouterLink>
+          <a class="nav-pill" href="#top-sites">🏁 Тренды 2025</a>
+          <RouterLink class="nav-link" to="/">📋 Каталог</RouterLink>
         </nav>
       </div>
     </header>

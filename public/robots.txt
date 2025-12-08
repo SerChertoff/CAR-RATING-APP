@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://yourdomain.com/CAR-RATING-APP/sitemap.xml
+
+# Disallow admin and private areas
+Disallow: /admin/
+Disallow: /api/
+
+# Allow CSS and JS
+Allow: /assets/
+Allow: /*.css$
+Allow: /*.js$

@@ -1,9 +1,9 @@
 <template>
-  <article class="site-card">
+  <article class="site-card" itemscope itemtype="https://schema.org/Product">
     <div class="site-card__header">
       <div>
-        <p class="eyebrow">Цифровой шоурум</p>
-        <h3>{{ site.name }}</h3>
+        <p class="eyebrow">🚗 Цифровой шоурум</p>
+        <h3 itemprop="name">{{ site.name }}</h3>
       </div>
       <div
         class="site-card__rating"
@@ -15,11 +15,11 @@
       </div>
     </div>
 
-    <p class="site-card__description">{{ site.description }}</p>
+    <p class="site-card__description" itemprop="description">{{ site.description }}</p>
 
     <div class="d-flex justify-content-between align-items-center">
       <div class="meta-pill">
-        <span>Отзывы</span>
+        <span>💬 Отзывы</span>
         <strong>{{ reviewCount }}</strong>
       </div>
       <div
@@ -46,7 +46,7 @@
         class="btn btn-glow"
         :aria-label="`Подробнее о площадке ${site.name}`"
       >
-        Подробнее
+        <span>🔍 Подробнее</span>
       </router-link>
     </div>
   </article>

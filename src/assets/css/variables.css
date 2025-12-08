@@ -1,26 +1,69 @@
 :root {
-  --primary: #ff5f6d;
-  --primary-dark: #d946ef;
-  --secondary: #22d3ee;
-  --success: #10b981;
-  --warning: #fb923c;
-  --danger: #f43f5e;
-  --light: #fdf4ff;
-  --dark: #0f172a;
+  /* Яркая автомобильная цветовая палитра */
+  --primary: #ff1744;
+  --primary-dark: #c51162;
+  --primary-light: #ff5252;
+  --secondary: #00e5ff;
+  --accent: #ffd700;
+  --accent-dark: #ffb300;
+  --success: #00e676;
+  --warning: #ffab00;
+  --danger: #ff1744;
+  --light: #ffffff;
+  --dark: #0a0e27;
+
+  /* Яркие автомобильные оттенки */
+  --car-red: #ff1744;
+  --car-blue: #2196f3;
+  --car-silver: #e0e0e0;
+  --car-black: #000000;
+  --car-gold: #ffd700;
+  --car-orange: #ff6d00;
+  --car-purple: #9c27b0;
+
+  /* Яркие градиенты для автолюбителей */
+  --gradient-speed: linear-gradient(135deg, #ff1744 0%, #ff6d00 30%, #ffd700 60%, #00e5ff 100%);
+  --gradient-night: linear-gradient(135deg, #0a0e27 0%, #1a237e 30%, #9c27b0 60%, #2196f3 100%);
+  --gradient-sunset: linear-gradient(135deg, #ff6d00 0%, #ff1744 50%, #c51162 100%);
+  --gradient-racing: linear-gradient(135deg, #ff1744 0%, #ff6d00 40%, #ffd700 80%, #00e676 100%);
+  --gradient-neon: linear-gradient(135deg, #ff1744 0%, #9c27b0 50%, #2196f3 100%);
+  --gradient-fire: linear-gradient(135deg, #ffd700 0%, #ff6d00 50%, #ff1744 100%);
+
   --gray-100: rgba(255, 255, 255, 0.18);
   --gray-200: rgba(255, 255, 255, 0.28);
   --gray-300: rgba(255, 255, 255, 0.45);
   --gray-400: rgba(255, 255, 255, 0.65);
-  --shadow-sm: 0 8px 24px rgba(15, 23, 42, 0.15);
-  --shadow-md: 0 20px 45px rgba(15, 23, 42, 0.25);
-  --shadow-lg: 0 30px 70px rgba(15, 23, 42, 0.4);
+
+  --shadow-sm: 0 8px 24px rgba(255, 23, 68, 0.3);
+  --shadow-md: 0 20px 45px rgba(255, 23, 68, 0.4);
+  --shadow-lg: 0 30px 70px rgba(255, 23, 68, 0.5);
+  --shadow-glow: 0 0 40px rgba(255, 23, 68, 0.7);
+  --shadow-neon:
+    0 0 20px rgba(255, 23, 68, 0.8), 0 0 40px rgba(255, 109, 0, 0.6),
+    0 0 60px rgba(255, 215, 0, 0.4);
+
   --radius-sm: 8px;
   --radius-md: 14px;
   --radius-lg: 24px;
-  --transition: all 0.3s ease;
-  --gradient-1: linear-gradient(135deg, #6366f1 0%, #ec4899 50%, #f97316 100%);
-  --gradient-2: linear-gradient(135deg, rgba(56, 189, 248, 0.9), rgba(249, 115, 22, 0.9));
-  --glass-bg: rgba(15, 23, 42, 0.65);
-  --glass-border: rgba(255, 255, 255, 0.08);
-  --blur: blur(18px);
+  --radius-xl: 32px;
+
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-fast: all 0.15s ease-out;
+  --transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+
+  --gradient-1: var(--gradient-speed);
+  --gradient-2: linear-gradient(135deg, rgba(0, 229, 255, 0.9), rgba(255, 61, 0, 0.9));
+
+  --glass-bg: rgba(10, 14, 39, 0.75);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --blur: blur(20px);
+
+  /* Автомобильные эффекты */
+  --speed-line: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 2px,
+    rgba(255, 255, 255, 0.1) 2px,
+    rgba(255, 255, 255, 0.1) 4px
+  );
 }
