@@ -65,7 +65,7 @@
       </section>
 
       <div class="row">
-        <div class="col-md-8">
+        <div class="col-12 col-md-8">
           <div class="card mb-4">
             <div class="card-header bg-white">
               <h2 class="mb-1 visually-hidden" itemprop="name">{{ site.name }}</h2>
@@ -87,25 +87,25 @@
               <p class="lead" itemprop="description">{{ site.description }}</p>
 
               <div class="row g-3 mb-4" v-if="site.details">
-                <div class="col-md-3 col-6" v-if="site.details.founded">
+                <div class="col-6 col-md-3" v-if="site.details.founded">
                   <div class="border rounded-3 p-3 text-center bg-light">
                     <small class="text-muted text-uppercase">Год запуска</small>
                     <div class="fw-semibold fs-5">{{ site.details.founded }}</div>
                   </div>
                 </div>
-                <div class="col-md-3 col-6" v-if="site.details.headquarters">
+                <div class="col-6 col-md-3" v-if="site.details.headquarters">
                   <div class="border rounded-3 p-3 text-center bg-light">
                     <small class="text-muted text-uppercase">Штаб-квартира</small>
                     <div class="fw-semibold fs-5">{{ site.details.headquarters }}</div>
                   </div>
                 </div>
-                <div class="col-md-3 col-6" v-if="site.details.dailyVisitors">
+                <div class="col-6 col-md-3" v-if="site.details.dailyVisitors">
                   <div class="border rounded-3 p-3 text-center bg-light">
                     <small class="text-muted text-uppercase">Аудитория</small>
                     <div class="fw-semibold fs-6">{{ site.details.dailyVisitors }}</div>
                   </div>
                 </div>
-                <div class="col-md-3 col-6" v-if="site.details.uniqueListings">
+                <div class="col-6 col-md-3" v-if="site.details.uniqueListings">
                   <div class="border rounded-3 p-3 text-center bg-light">
                     <small class="text-muted text-uppercase">Объявления</small>
                     <div class="fw-semibold fs-6">{{ site.details.uniqueListings }}</div>
@@ -132,7 +132,7 @@
 
               <div v-if="site.details">
                 <div class="row g-4">
-                  <div class="col-md-6" v-if="site.details.offerTypes?.length">
+                  <div class="col-12 col-md-6" v-if="site.details.offerTypes?.length">
                     <h6 class="text-uppercase text-muted">Типы предложений</h6>
                     <ul class="list-unstyled mb-0">
                       <li
@@ -145,7 +145,7 @@
                       </li>
                     </ul>
                   </div>
-                  <div class="col-md-6" v-if="site.details.verification">
+                  <div class="col-12 col-md-6" v-if="site.details.verification">
                     <h6 class="text-uppercase text-muted">Проверка и безопасность</h6>
                     <p class="mb-0">{{ site.details.verification }}</p>
                   </div>
@@ -155,7 +155,7 @@
                   <h5>Ключевые сервисы</h5>
                   <div class="row g-3">
                     <div
-                      class="col-md-4"
+                      class="col-12 col-md-4"
                       v-for="service in site.details.services"
                       :key="service.title"
                     >
@@ -171,7 +171,7 @@
                   class="row g-4 mt-1"
                   v-if="site.details.pros?.length || site.details.cons?.length"
                 >
-                  <div class="col-md-6" v-if="site.details.pros?.length">
+                  <div class="col-12 col-md-6" v-if="site.details.pros?.length">
                     <div class="border rounded-3 p-3 h-100">
                       <h6 class="text-success">Преимущества</h6>
                       <ul class="mb-0">
@@ -179,7 +179,7 @@
                       </ul>
                     </div>
                   </div>
-                  <div class="col-md-6" v-if="site.details.cons?.length">
+                  <div class="col-12 col-md-6" v-if="site.details.cons?.length">
                     <div class="border rounded-3 p-3 h-100">
                       <h6 class="text-danger">Ограничения</h6>
                       <ul class="mb-0">
@@ -193,15 +193,15 @@
                   <div class="card-body">
                     <h5>Как связаться</h5>
                     <div class="row">
-                      <div class="col-md-4" v-if="site.details.contacts.phone">
+                      <div class="col-12 col-md-4" v-if="site.details.contacts.phone">
                         <small class="text-muted text-uppercase">Телефон</small>
                         <div class="fw-semibold">{{ site.details.contacts.phone }}</div>
                       </div>
-                      <div class="col-md-4" v-if="site.details.contacts.support">
+                      <div class="col-12 col-md-4" v-if="site.details.contacts.support">
                         <small class="text-muted text-uppercase">Поддержка</small>
                         <div class="fw-semibold">{{ site.details.contacts.support }}</div>
                       </div>
-                      <div class="col-md-4" v-if="site.details.contacts.offices">
+                      <div class="col-12 col-md-4" v-if="site.details.contacts.offices">
                         <small class="text-muted text-uppercase">Офисы</small>
                         <div class="fw-semibold">{{ site.details.contacts.offices }}</div>
                       </div>
@@ -213,7 +213,7 @@
           </div>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-12 col-md-4">
           <ReviewForm :site-id="site.id" />
         </div>
       </div>
