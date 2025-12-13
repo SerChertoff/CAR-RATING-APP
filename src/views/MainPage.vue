@@ -132,6 +132,7 @@ const { sortByRating } = ratingStore
 const vibeFilters = ['Онлайн-сделки', 'Глубокая проверка', 'Комьюнити', 'Trade-in', 'Премиум']
 const selectedFilter = ref(vibeFilters[0])
 
+// Оптимизированные computed свойства
 const totalReviews = computed(() => {
   const total = sites.value.reduce((sum, site) => sum + site.reviews, 0)
   return total.toLocaleString('ru-RU')
@@ -143,9 +144,20 @@ const averageRating = computed(() => {
   return (total / sites.value.length).toFixed(1)
 })
 
+// Оптимизированный поиск топ-сайта без сортировки всего массива
 const topSite = computed(() => {
   if (!sites.value.length) return null
-  return [...sites.value].sort((a, b) => b.rating - a.rating)[0]
+  
+  // Находим максимальный рейтинг за один проход
+  let maxRating = -1
+  let top = null
+  for (const site of sites.value) {
+    if (site.rating > maxRating) {
+      maxRating = site.rating
+      top = site
+    }
+  }
+  return top
 })
 
 const highlightMessage = computed(() => {
