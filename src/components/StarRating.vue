@@ -68,17 +68,16 @@ const setRating = (value) => {
   cursor: pointer;
   transition:
     transform 0.2s ease,
-    color 0.2s ease;
+    color 0.2s ease,
+    box-shadow 0.2s ease;
   background: transparent;
   border: none;
   padding: 4px;
   border-radius: 6px;
-  will-change: transform;
-  transform: translateZ(0);
 }
 
 .star:hover {
-  transform: translate3d(0, -2px, 0) scale3d(1.05, 1.05, 1);
+  transform: translateY(-2px) scale(1.05);
   outline: none;
 }
 
@@ -87,18 +86,16 @@ const setRating = (value) => {
   text-shadow:
     0 0 15px rgba(255, 195, 7, 0.8),
     0 0 30px rgba(255, 61, 0, 0.5);
-  will-change: transform;
-  transform: translateZ(0);
   animation: starPulse 2s ease-in-out infinite;
 }
 
 @keyframes starPulse {
   0%,
   100% {
-    transform: scale3d(1, 1, 1) translateZ(0);
+    transform: scale(1);
   }
   50% {
-    transform: scale3d(1.1, 1.1, 1) translateZ(0);
+    transform: scale(1.1);
   }
 }
 

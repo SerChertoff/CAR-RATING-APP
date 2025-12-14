@@ -529,53 +529,6 @@ html {
   }
 }
 
-/* Оптимизация анимаций на мобильных устройствах */
-@media (max-width: 768px) {
-  /* Отключаем или упрощаем тяжелые анимации */
-  .orb {
-    animation-duration: 12s;
-    filter: blur(60px);
-  }
-  
-  .brand-badge {
-    animation: none;
-  }
-  
-  .hero-panel {
-    animation: none;
-    backdrop-filter: blur(10px);
-  }
-  
-  .site-card__rating {
-    animation: none;
-  }
-  
-  .progress-bar span::after {
-    animation: none;
-  }
-  
-  /* Упрощаем backdrop-filter на мобильных */
-  .app-navbar {
-    backdrop-filter: blur(8px);
-  }
-  
-  .site-card,
-  .stat-card,
-  .insight-card,
-  .glass-panel {
-    backdrop-filter: blur(8px);
-  }
-  
-  /* Уменьшаем количество теней */
-  .site-card:hover {
-    box-shadow: var(--shadow-md);
-  }
-  
-  .btn-primary:hover {
-    box-shadow: var(--shadow-md);
-  }
-}
-
 /* Dark mode support (if needed) */
 @media (prefers-color-scheme: dark) {
   /* Already dark by default, but can add specific overrides */

@@ -59,18 +59,18 @@
           <p class="eyebrow">🏆 Флагман недели</p>
           <h2 id="flagship-title">{{ topSite.name }}</h2>
           <p class="text-muted">{{ topSite.description }}</p>
-          <p class="text-muted" style="margin-top: 0.5rem; font-size: 0.9rem">
+          <p class="text-muted text-small">
             Выбор автолюбителей этой недели — проверенная площадка с отличной репутацией
           </p>
         </div>
         <div class="insight-card__spotlight">
           <div>
             <small class="eyebrow">⭐ Рейтинг</small>
-            <strong style="font-size: 2rem">{{ topSite.rating.toFixed(1) }}</strong>
+            <strong class="rating-large">{{ topSite.rating.toFixed(1) }}</strong>
           </div>
           <div>
             <small class="eyebrow">💬 Отзывы</small>
-            <strong style="font-size: 2rem">{{ topSite.reviews.toLocaleString('ru-RU') }}</strong>
+            <strong class="rating-large">{{ topSite.reviews.toLocaleString('ru-RU') }}</strong>
           </div>
           <router-link class="btn btn-glow" :to="`/site/${topSite.id}`">
             <span>🚀 Открыть профиль</span>
@@ -101,9 +101,9 @@
           />
         </div>
         <div v-else class="glass-panel p-4 text-center">
-          <p style="font-size: 3rem; margin-bottom: 1rem">🚗</p>
+          <p class="emoji-large">🚗</p>
           <p>Данными пока делятся не все площадки. Попробуйте обновить страницу чуть позже.</p>
-          <p class="text-muted" style="margin-top: 0.5rem; font-size: 0.9rem">
+          <p class="text-muted text-small">
             Мы постоянно обновляем информацию для автолюбителей
           </p>
         </div>
@@ -132,7 +132,6 @@ const { sortByRating } = ratingStore
 const vibeFilters = ['Онлайн-сделки', 'Глубокая проверка', 'Комьюнити', 'Trade-in', 'Премиум']
 const selectedFilter = ref(vibeFilters[0])
 
-// Оптимизированные computed свойства
 const totalReviews = computed(() => {
   const total = sites.value.reduce((sum, site) => sum + site.reviews, 0)
   return total.toLocaleString('ru-RU')
@@ -144,20 +143,9 @@ const averageRating = computed(() => {
   return (total / sites.value.length).toFixed(1)
 })
 
-// Оптимизированный поиск топ-сайта без сортировки всего массива
 const topSite = computed(() => {
   if (!sites.value.length) return null
-  
-  // Находим максимальный рейтинг за один проход
-  let maxRating = -1
-  let top = null
-  for (const site of sites.value) {
-    if (site.rating > maxRating) {
-      maxRating = site.rating
-      top = site
-    }
-  }
-  return top
+  return [...sites.value].sort((a, b) => b.rating - a.rating)[0]
 })
 
 const highlightMessage = computed(() => {

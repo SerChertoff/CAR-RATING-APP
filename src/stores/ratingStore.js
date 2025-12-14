@@ -8,8 +8,7 @@ export const useRatingStore = defineStore('rating', () => {
   const sites = ref([...config.defaultSites])
 
   const sortByRating = () => {
-    // Создаем новый массив вместо мутации для лучшей производительности
-    sites.value = [...sites.value].sort((a, b) => b.rating - a.rating)
+    sites.value.sort((a, b) => b.rating - a.rating)
   }
 
   const addReview = (siteId, newRating) => {
