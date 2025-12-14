@@ -47,9 +47,9 @@
   --radius-lg: 24px;
   --radius-xl: 32px;
 
-  --transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-fast: transform 0.15s ease-out, opacity 0.15s ease-out;
-  --transition-slow: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-fast: all 0.15s ease-out;
+  --transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 
   --gradient-1: var(--gradient-speed);
   --gradient-2: linear-gradient(135deg, rgba(0, 229, 255, 0.9), rgba(255, 61, 0, 0.9));
