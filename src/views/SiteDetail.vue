@@ -33,7 +33,13 @@
           <p class="eyebrow">📍 Штаб-квартира — {{ site.details?.headquarters || 'Россия' }}</p>
           <h1 class="mb-2" itemprop="name">{{ site.name }}</h1>
           <meta itemprop="brand" :content="site.name" />
-          <p class="text-muted mb-3" itemprop="description">{{ site.description }}</p>
+          <p 
+            class="text-muted mb-3" 
+            :class="{ 'description-white': isDescHovered }"
+            @mouseenter="isDescHovered = true"
+            @mouseleave="isDescHovered = false"
+            itemprop="description"
+          >{{ site.description }}</p>
           <div class="filter-chips" v-if="site.features?.length">
             <span v-for="feature in site.features" :key="feature" class="chip">
               {{ feature }}
@@ -225,7 +231,7 @@
 </template>
 
 <script setup>
-import { computed, watch, onMounted } from 'vue'
+import { computed, watch, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { useRatingStore } from '@/stores/ratingStore'
 import ReviewForm from '@/components/ReviewForm.vue'
@@ -235,6 +241,9 @@ import { useSEO } from '@/composables/useSEO'
 const route = useRoute()
 const ratingStore = useRatingStore()
 const site = computed(() => ratingStore.sites.find((s) => s.id === parseInt(route.params.id)))
+
+// Состояние для hover эффекта описания
+const isDescHovered = ref(false)
 
 const handleExternalLink = (event, url) => {
   if (!url) {

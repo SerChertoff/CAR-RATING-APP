@@ -1186,6 +1186,17 @@ section + section {
 .detail-hero p {
   font-size: 1rem;
   margin-bottom: 1rem;
+  transition:
+    color 0.3s ease,
+    text-shadow 0.3s ease;
+}
+
+.detail-hero p.description-white {
+  color: rgba(255, 255, 255, 1) !important;
+  text-shadow:
+    0 2px 12px rgba(255, 255, 255, 0.6),
+    0 2px 8px rgba(0, 0, 0, 0.9) !important;
+  font-weight: 500 !important;
 }
 
 .detail-hero::before {
