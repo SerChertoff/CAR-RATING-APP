@@ -8,6 +8,7 @@
           itemprop="itemListElement"
           itemscope
           itemtype="https://schema.org/ListItem"
+          style="display: none;"
         >
           <router-link to="/" itemprop="item">
             <span itemprop="name">Главная</span>
