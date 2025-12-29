@@ -93,7 +93,7 @@ const config = {
       reviews: 21000,
       description: 'Секция автомобилей на крупнейшем маркетплейсе',
       features: ['Все категории', 'Простой интерфейс', 'Мобильное приложение'],
-      url: 'https://avito.ru/avtomobili',
+      url: 'https://www.avito.ru/rossiya/avtomobili',
       details: {
         founded: '2007',
         headquarters: 'Москва',

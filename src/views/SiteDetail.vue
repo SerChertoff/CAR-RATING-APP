@@ -58,6 +58,7 @@
             rel="noopener noreferrer"
             class="btn btn-primary mt-3"
             :aria-label="`Перейти на сайт ${site.name} в новой вкладке`"
+            @click="handleExternalLink($event, site.url)"
           >
             🚀 Перейти на сайт
           </a>
@@ -125,6 +126,7 @@
                   class="btn btn-primary"
                   :aria-label="`Перейти на сайт ${site.name} в новой вкладке`"
                   itemprop="url"
+                  @click="handleExternalLink($event, site.url)"
                 >
                   Перейти на сайт
                 </a>
@@ -232,6 +234,37 @@ import { useSEO } from '@/composables/useSEO'
 const route = useRoute()
 const ratingStore = useRatingStore()
 const site = computed(() => ratingStore.sites.find((s) => s.id === parseInt(route.params.id)))
+
+const handleExternalLink = (event, url) => {
+  if (!url) {
+    alert('URL не указан для сайта')
+    event.preventDefault()
+    return false
+  }
+  
+  // Убеждаемся, что URL полный
+  let fullUrl = url
+  if (!url.startsWith('http://') && !url.startsWith('https://')) {
+    fullUrl = `https://${url}`
+  }
+  
+  // Открываем ссылку в новой вкладке
+  const newWindow = window.open(fullUrl, '_blank', 'noopener,noreferrer')
+  
+  // Если открытие заблокировано (например, блокировщиком рекламы), показываем предупреждение
+  if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+    // Если не удалось открыть, пробуем через location
+    if (confirm('Не удалось открыть ссылку в новой вкладке. Открыть в текущей вкладке?')) {
+      window.location.href = fullUrl
+    }
+    event.preventDefault()
+    return false
+  }
+  
+  // Предотвращаем стандартное поведение только если открытие прошло успешно
+  event.preventDefault()
+  return false
+}
 
 // Обновляем SEO при изменении сайта
 const { updateSEO } = useSEO()

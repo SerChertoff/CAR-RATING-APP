@@ -19,6 +19,78 @@ const closeMobileMenu = () => {
   isMobileMenuOpen.value = false
 }
 
+const handleCatalogClick = (event) => {
+  closeMobileMenu()
+  event.preventDefault()
+  
+  // Если мы не на главной странице, переходим на главную
+  if (router.currentRoute.value.path !== '/') {
+    router.push('/').then(() => {
+      // После перехода прокручиваем к каталогу с учетом header
+      setTimeout(() => {
+        const element = document.getElementById('top-sites')
+        if (element) {
+          const headerHeight = document.querySelector('.app-navbar')?.offsetHeight || 80
+          const elementPosition = element.getBoundingClientRect().top + window.pageYOffset
+          const offsetPosition = elementPosition - headerHeight - 20
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          })
+        }
+      }, 100)
+    })
+  } else {
+    // Если уже на главной, прокручиваем к каталогу с учетом header
+    const element = document.getElementById('top-sites')
+    if (element) {
+      const headerHeight = document.querySelector('.app-navbar')?.offsetHeight || 80
+      const elementPosition = element.getBoundingClientRect().top + window.pageYOffset
+      const offsetPosition = elementPosition - headerHeight - 20
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      })
+    }
+  }
+}
+
+const handleTrendsClick = (event) => {
+  closeMobileMenu()
+  event.preventDefault()
+  
+  // Если мы не на главной странице, переходим на главную
+  if (router.currentRoute.value.path !== '/') {
+    router.push('/').then(() => {
+      // После перехода прокручиваем к фильтрам/трендам с учетом header
+      setTimeout(() => {
+        const element = document.getElementById('trends') || document.querySelector('.filter-chips')
+        if (element) {
+          const headerHeight = document.querySelector('.app-navbar')?.offsetHeight || 80
+          const elementPosition = element.getBoundingClientRect().top + window.pageYOffset
+          const offsetPosition = elementPosition - headerHeight - 20
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          })
+        }
+      }, 100)
+    })
+  } else {
+    // Если уже на главной, прокручиваем к фильтрам/трендам с учетом header
+    const element = document.getElementById('trends') || document.querySelector('.filter-chips')
+    if (element) {
+      const headerHeight = document.querySelector('.app-navbar')?.offsetHeight || 80
+      const elementPosition = element.getBoundingClientRect().top + window.pageYOffset
+      const offsetPosition = elementPosition - headerHeight - 20
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      })
+    }
+  }
+}
+
 // Close menu when clicking outside
 const handleClickOutside = (event) => {
   if (isMobileMenuOpen.value && !event.target.closest('.app-navbar')) {
@@ -87,8 +159,8 @@ onUnmounted(() => {
           id="main-navigation"
           aria-label="Основная навигация"
         >
-          <a class="nav-pill" href="#top-sites" @click="closeMobileMenu"> 🏁 Тренды 2025 </a>
-          <RouterLink class="nav-link" to="/" @click="closeMobileMenu"> 📋 Каталог </RouterLink>
+          <a class="nav-pill" href="#trends" @click="handleTrendsClick"> 🏁 Тренды 2025 </a>
+          <a class="nav-link" href="#top-sites" @click="handleCatalogClick"> 📋 Каталог </a>
         </nav>
       </div>
     </header>

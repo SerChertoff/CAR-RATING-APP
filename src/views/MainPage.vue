@@ -40,7 +40,7 @@
         </div>
       </section>
 
-      <div class="filter-chips" role="group" aria-label="Фильтр по типу площадки">
+      <div id="trends" class="filter-chips" role="group" aria-label="Фильтр по типу площадки">
         <button
           v-for="filter in vibeFilters"
           :key="filter"

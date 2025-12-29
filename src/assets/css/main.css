@@ -363,6 +363,8 @@ body::before {
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  position: relative;
+  z-index: 0;
 }
 
 .hero-panel {
@@ -382,6 +384,11 @@ body::before {
   backdrop-filter: var(--blur);
   animation: heroGlow 4s ease-in-out infinite;
   margin-bottom: 2rem;
+  z-index: 1;
+  clear: both;
+  isolation: isolate;
+  align-items: start;
+  min-height: 400px;
 }
 
 @keyframes heroGlow {
@@ -450,6 +457,14 @@ body::before {
   gap: 0.5rem;
 }
 
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  position: relative;
+  z-index: 1;
+}
+
 .hero-content p {
   color: rgba(240, 245, 255, 1);
   max-width: 520px;
@@ -475,11 +490,21 @@ body::before {
   gap: 0.75rem;
   border: 1px solid var(--glass-border);
   margin-top: 1.5rem;
+  min-height: 100px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  position: relative;
+  z-index: 1;
+  transition: min-height 0.3s ease;
 }
 
 .hero-highlight p {
   margin-bottom: 0;
   font-size: 1rem;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  line-height: 1.6;
+  transition: min-height 0.3s ease;
 }
 
 .hero-stats {
@@ -490,6 +515,9 @@ body::before {
   max-width: 100%;
   min-width: 0;
   margin-top: 1rem;
+  align-self: start;
+  position: relative;
+  z-index: 1;
 }
 
 .stat-card {
@@ -576,6 +604,13 @@ body::before {
   gap: 0.75rem;
   margin-bottom: 2rem;
   margin-top: 1rem;
+  position: relative;
+  z-index: 2;
+  clear: both;
+  isolation: isolate;
+  width: 100%;
+  box-sizing: border-box;
+  scroll-margin-top: 100px;
 }
 
 .chip {
@@ -641,6 +676,9 @@ body::before {
   overflow: hidden;
   margin-bottom: 2rem;
   margin-top: 1rem;
+  z-index: 1;
+  clear: both;
+  isolation: isolate;
 }
 
 .insight-card::before {
@@ -722,6 +760,26 @@ body::before {
   animation: fadeInUp 0.6s ease-out;
   margin-top: 1rem;
   margin-bottom: 2rem;
+  position: relative;
+  z-index: 1;
+  clear: both;
+  isolation: isolate;
+}
+
+#top-sites {
+  scroll-margin-top: 100px;
+  position: relative;
+}
+
+/* Предотвращение наложения секций */
+section {
+  position: relative;
+  z-index: 0;
+  clear: both;
+}
+
+section + section {
+  margin-top: 0;
 }
 
 @keyframes fadeInUp {
